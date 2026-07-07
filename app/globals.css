@@ -101,7 +101,15 @@ body {
 
 .scene-shot {
   position: relative;
-  height: 230vh; /* scroll runway for the camera move */
+  height: 165vh; /* scroll runway for the camera move */
+}
+
+/* story panel that slides up OVER the tail of the pinned shot */
+.story-panel {
+  position: relative;
+  z-index: 10;
+  margin-top: -42vh;
+  background: linear-gradient(to bottom, transparent, rgba(5, 6, 10, 0.88) 18vh, rgba(5, 6, 10, 0.92));
 }
 
 .scene-sticky {

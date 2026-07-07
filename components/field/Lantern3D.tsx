@@ -29,19 +29,24 @@ function LanternRig({ children }: { children: React.ReactNode }) {
     const total = doc ? Math.max(1, doc.scrollHeight - window.innerHeight) : 1;
     const p = Math.min(1, scrollY / total); // 0..1 across the whole film
 
-    // flight path: swooping arcs across the journey + idle bob
-    const x = Math.sin(p * Math.PI * 5) * 4.6 + Math.sin(t * 0.5) * 0.2;
-    const y = Math.cos(p * Math.PI * 4) * 2.4 + Math.sin(t * 0.9) * 0.22;
-    const z = 1.6 + Math.sin(p * Math.PI * 3) * 1.3;
-    const pos = new THREE.Vector3(x, y, z);
-    group.current.position.copy(pos);
+    // cinematic flight path: slow graceful drifts that stay clear of the
+    // center where the story text lives; heavy damping = movie steadicam
+    const tx = Math.sin(p * Math.PI * 2.2 + 0.6) * 4.9 + Math.sin(t * 0.22) * 0.25;
+    const ty = Math.cos(p * Math.PI * 1.7) * 2.1 + Math.sin(t * 0.4) * 0.18;
+    const tz = 1.4 + Math.sin(p * Math.PI * 1.3) * 1.1;
+    const target = new THREE.Vector3(tx, ty, tz);
+    // ease toward the target — never snaps, always glides
+    group.current.position.lerp(target, Math.min(1, delta * 1.6));
+    const pos = group.current.position;
 
-    // banking: lean into horizontal motion like a real flyer
+    // banking: lean into horizontal motion like a real flyer (gentle)
     const vx = (pos.x - prev.current.x) / Math.max(delta, 1e-4);
     const vy = (pos.y - prev.current.y) / Math.max(delta, 1e-4);
-    const bank = THREE.MathUtils.clamp(-vx * 0.04, -0.6, 0.6);
-    const pitch = THREE.MathUtils.clamp(vy * 0.02, -0.35, 0.35);
-    group.current.rotation.set(pitch, t * 0.35, bank);
+    const bank = THREE.MathUtils.clamp(-vx * 0.06, -0.4, 0.4);
+    const pitch = THREE.MathUtils.clamp(vy * 0.03, -0.25, 0.25);
+    group.current.rotation.x += (pitch - group.current.rotation.x) * Math.min(1, delta * 3);
+    group.current.rotation.z += (bank - group.current.rotation.z) * Math.min(1, delta * 3);
+    group.current.rotation.y = t * 0.22;
 
     // ember trail: shift history back, head follows the lantern
     const arr = trailPos.current;

@@ -24,7 +24,7 @@ export default function ChapterSection({
         index={sceneIndex}
       />
 
-      <div className="relative flex min-h-[110vh] flex-col justify-center py-32">
+      <div className="story-panel flex min-h-[90vh] flex-col justify-center py-28">
         <CinemaLayer src={`/media/${chapter.id}.jpg`} />
         <div className="mx-auto w-full max-w-5xl px-6">
           <p data-reveal className="max-w-2xl text-xl leading-relaxed text-ink/95 sm:text-2xl">

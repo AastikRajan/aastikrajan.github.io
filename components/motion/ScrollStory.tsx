@@ -51,7 +51,7 @@ export default function ScrollStory({ children }: { children: ReactNode }) {
           opacity: 1,
           duration: 0.9,
           ease: "power3.out",
-          scrollTrigger: { trigger: el, start: "top 88%" },
+          scrollTrigger: { trigger: el, start: "top 94%" },
         }
       );
     });
@@ -124,7 +124,17 @@ export default function ScrollStory({ children }: { children: ReactNode }) {
       );
     });
 
+    // late layout shifts (lazy images, fonts, GLB) misplace triggers and
+    // leave reveals stuck hidden — refresh once everything has settled
+    const refresh = () => ScrollTrigger.refresh();
+    window.addEventListener("load", refresh);
+    const t1 = setTimeout(refresh, 1200);
+    const t2 = setTimeout(refresh, 3500);
+
     return () => {
+      window.removeEventListener("load", refresh);
+      clearTimeout(t1);
+      clearTimeout(t2);
       triggers.forEach((t) => t.kill());
       ScrollTrigger.getAll().forEach((t) => t.kill());
     };

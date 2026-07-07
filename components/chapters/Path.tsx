@@ -11,7 +11,7 @@ export default function Path() {
         title="From a satellite dish to a research lab"
         index="SCENE 05"
       />
-      <div className="relative mx-auto flex min-h-[100vh] max-w-5xl flex-col justify-center px-6 py-32">
+      <div className="story-panel mx-auto flex min-h-[85vh] w-full max-w-5xl flex-col justify-center px-6 py-28">
       <CinemaLayer src="/media/path.jpg" />
       <div className="space-y-0">
         {path.map((stop, i) => (

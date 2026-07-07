@@ -11,9 +11,9 @@ export default function Play() {
         title="Serious engineers also build toys"
         index="SCENE 06"
       />
-      <div className="relative mx-auto flex min-h-[100vh] max-w-5xl flex-col justify-center px-6 py-32">
+      <div className="story-panel mx-auto flex min-h-[85vh] w-full max-w-5xl flex-col justify-center px-6 py-28">
       <CinemaLayer src="/media/play.jpg" />
-      <div className="grid gap-4 sm:grid-cols-2">
+      <div className="grid gap-4 sm:grid-cols-3">
         {play.map((g) => (
           <a
             key={g.title}
