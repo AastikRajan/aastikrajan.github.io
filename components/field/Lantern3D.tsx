@@ -7,35 +7,88 @@ import * as THREE from "three";
 
 const GLB_PATH = "/models/lantern.glb";
 
-/** The hero's character: a glowing lantern that bobs, glows, and rises away as you scroll. */
+const TRAIL = 140;
+
+/**
+ * The guide character: a glowing lantern that FLIES with you through the
+ * whole story — swooping figure-eights across the journey, banking into
+ * turns, shedding a warm ember trail.
+ */
 function LanternRig({ children }: { children: React.ReactNode }) {
   const group = useRef<THREE.Group>(null!);
   const light = useRef<THREE.PointLight>(null!);
+  const prev = useRef(new THREE.Vector3(3.4, 0.6, 2.2));
+  const trailGeo = useRef<THREE.BufferGeometry>(null!);
+  const trailPos = useRef(new Float32Array(TRAIL * 3));
+  const trailInit = useRef(false);
 
-  useFrame((state) => {
+  useFrame((state, delta) => {
     const t = state.clock.elapsedTime;
-    const scroll = typeof window === "undefined" ? 0 : window.scrollY;
-    const vh = typeof window === "undefined" ? 800 : window.innerHeight;
-    const p = Math.min(1, scroll / (vh * 1.2)); // scrolled past hero → 1
+    const scrollY = typeof window === "undefined" ? 0 : window.scrollY;
+    const doc = typeof document === "undefined" ? null : document.documentElement;
+    const total = doc ? Math.max(1, doc.scrollHeight - window.innerHeight) : 1;
+    const p = Math.min(1, scrollY / total); // 0..1 across the whole film
 
-    // rises up and away as the story starts; gentle idle bob + sway
-    group.current.position.set(
-      3.4 + Math.sin(t * 0.4) * 0.15,
-      0.6 + Math.sin(t * 0.8) * 0.18 + p * 9,
-      2.2
-    );
-    group.current.rotation.y = t * 0.25;
-    // breathing glow
+    // flight path: swooping arcs across the journey + idle bob
+    const x = Math.sin(p * Math.PI * 5) * 4.6 + Math.sin(t * 0.5) * 0.2;
+    const y = Math.cos(p * Math.PI * 4) * 2.4 + Math.sin(t * 0.9) * 0.22;
+    const z = 1.6 + Math.sin(p * Math.PI * 3) * 1.3;
+    const pos = new THREE.Vector3(x, y, z);
+    group.current.position.copy(pos);
+
+    // banking: lean into horizontal motion like a real flyer
+    const vx = (pos.x - prev.current.x) / Math.max(delta, 1e-4);
+    const vy = (pos.y - prev.current.y) / Math.max(delta, 1e-4);
+    const bank = THREE.MathUtils.clamp(-vx * 0.04, -0.6, 0.6);
+    const pitch = THREE.MathUtils.clamp(vy * 0.02, -0.35, 0.35);
+    group.current.rotation.set(pitch, t * 0.35, bank);
+
+    // ember trail: shift history back, head follows the lantern
+    const arr = trailPos.current;
+    if (!trailInit.current) {
+      for (let i = 0; i < TRAIL; i++) pos.toArray(arr, i * 3);
+      trailInit.current = true;
+    }
+    for (let i = TRAIL - 1; i > 0; i--) {
+      arr[i * 3] = arr[(i - 1) * 3];
+      arr[i * 3 + 1] = arr[(i - 1) * 3 + 1];
+      arr[i * 3 + 2] = arr[(i - 1) * 3 + 2];
+    }
+    // slight droop + scatter so it reads as embers, not a rope
+    arr[0] = pos.x + (Math.random() - 0.5) * 0.06;
+    arr[1] = pos.y - 0.55 + (Math.random() - 0.5) * 0.06;
+    arr[2] = pos.z;
+    if (trailGeo.current) {
+      (trailGeo.current.getAttribute("position") as THREE.BufferAttribute).needsUpdate = true;
+    }
+
+    prev.current.copy(pos);
     if (light.current) light.current.intensity = 6 + Math.sin(t * 1.7) * 1.5;
   });
 
   return (
-    <group ref={group} scale={0.9}>
-      {children}
-      <pointLight ref={light} color="#ffb35c" distance={10} decay={2} />
-      {/* warm rim light just outside the shell so the paper reads at night */}
-      <pointLight position={[1.6, 0.8, 1.6]} color="#ffc98a" intensity={3} distance={6} decay={2} />
-    </group>
+    <>
+      <group ref={group} scale={0.9}>
+        {children}
+        <pointLight ref={light} color="#ffb35c" distance={10} decay={2} />
+        <pointLight position={[1.6, 0.8, 1.6]} color="#ffc98a" intensity={3} distance={6} decay={2} />
+      </group>
+      {/* ember trail */}
+      <points frustumCulled={false}>
+        <bufferGeometry ref={trailGeo}>
+          <bufferAttribute attach="attributes-position" args={[trailPos.current, 3]} />
+        </bufferGeometry>
+        <pointsMaterial
+          color="#ffb35c"
+          size={0.06}
+          sizeAttenuation
+          transparent
+          opacity={0.5}
+          depthWrite={false}
+          blending={THREE.AdditiveBlending}
+        />
+      </points>
+    </>
   );
 }
 
