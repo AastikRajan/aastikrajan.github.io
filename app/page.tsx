@@ -1,4 +1,5 @@
 import FieldCanvas from "@/components/field/FieldCanvas";
+import FrontCanvas from "@/components/field/FrontCanvas";
 import SmoothScroll from "@/components/motion/SmoothScroll";
 import ScrollStory from "@/components/motion/ScrollStory";
 import Preloader from "@/components/chapters/Preloader";
@@ -19,6 +20,7 @@ export default function Home() {
       <ScrollStory>
         <Preloader />
         <FieldCanvas />
+        <FrontCanvas />
         <main>
           <Hero />
           {chapters.map((c, i) => (

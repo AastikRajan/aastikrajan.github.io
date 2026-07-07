@@ -4,8 +4,8 @@ import { useEffect, useState } from "react";
 import { Canvas } from "@react-three/fiber";
 import { detectTier, PARTICLES, Tier } from "@/lib/tier";
 import ParticleField from "./ParticleField";
-import Lantern3D from "./Lantern3D";
 import DustStream from "./DustStream";
+import { Moon, Gems } from "./Ambient";
 
 /**
  * The persistent field behind the entire site.
@@ -36,10 +36,11 @@ export default function FieldCanvas() {
         gl={{ antialias: false, alpha: true, powerPreference: "high-performance" }}
       >
         <ParticleField count={PARTICLES[tier]} />
-        <DustStream />
+        <DustStream count={2600} />
         <ambientLight intensity={0.5} />
         <directionalLight position={[4, 6, 8]} intensity={0.8} color="#bfd8ff" />
-        <Lantern3D />
+        <Moon />
+        <Gems />
       </Canvas>
     </div>
   );
