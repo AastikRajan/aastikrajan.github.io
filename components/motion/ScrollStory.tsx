@@ -56,6 +56,24 @@ export default function ScrollStory({ children }: { children: ReactNode }) {
       );
     });
 
+    // cinematic backdrops drift slower than the page — depth
+    gsap.utils.toArray<HTMLElement>("[data-cinema]").forEach((img) => {
+      gsap.fromTo(
+        img,
+        { yPercent: reduced ? 0 : -6 },
+        {
+          yPercent: reduced ? 0 : 6,
+          ease: "none",
+          scrollTrigger: {
+            trigger: img.closest("section"),
+            start: "top bottom",
+            end: "bottom top",
+            scrub: true,
+          },
+        }
+      );
+    });
+
     // stat counters pop with stagger
     gsap.utils.toArray<HTMLElement>("[data-stats]").forEach((grid) => {
       gsap.fromTo(

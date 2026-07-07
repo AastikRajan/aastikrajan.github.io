@@ -1,4 +1,5 @@
 import { play, dossier } from "@/content/chapters";
+import CinemaLayer from "@/components/ui/CinemaLayer";
 
 export default function Play() {
   return (
@@ -7,6 +8,7 @@ export default function Play() {
       data-chapter="play"
       className="relative mx-auto flex min-h-[130vh] max-w-5xl flex-col justify-center px-6 py-40"
     >
+      <CinemaLayer src="/media/play.jpg" />
       <p data-reveal className="font-mono text-xs uppercase tracking-[0.35em] text-cyan">
         CHAPTER 06 — PLAY & CLASSIFIED
       </p>

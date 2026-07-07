@@ -1,6 +1,7 @@
 import type { Chapter } from "@/content/chapters";
 import StatGrid from "@/components/ui/StatGrid";
 import MagneticButton from "@/components/ui/MagneticButton";
+import CinemaLayer from "@/components/ui/CinemaLayer";
 
 /** A research case-study chapter: story → method → results → links. */
 export default function ChapterSection({ chapter }: { chapter: Chapter }) {
@@ -8,8 +9,10 @@ export default function ChapterSection({ chapter }: { chapter: Chapter }) {
     <section
       id={chapter.id}
       data-chapter={chapter.id}
-      className="relative mx-auto flex min-h-[160vh] max-w-5xl flex-col justify-center px-6 py-40"
+      className="relative flex min-h-[160vh] flex-col justify-center py-40"
     >
+      <CinemaLayer src={`/media/${chapter.id}.jpg`} />
+      <div className="mx-auto w-full max-w-5xl px-6">
       <p data-reveal className="font-mono text-xs uppercase tracking-[0.35em] text-cyan">
         {chapter.kicker}
       </p>
@@ -45,6 +48,7 @@ export default function ChapterSection({ chapter }: { chapter: Chapter }) {
             </span>
           ))}
         </div>
+      </div>
       </div>
     </section>
   );

@@ -1,4 +1,5 @@
 import { path } from "@/content/chapters";
+import CinemaLayer from "@/components/ui/CinemaLayer";
 
 export default function Path() {
   return (
@@ -7,6 +8,7 @@ export default function Path() {
       data-chapter="path"
       className="relative mx-auto flex min-h-[140vh] max-w-5xl flex-col justify-center px-6 py-40"
     >
+      <CinemaLayer src="/media/path.jpg" />
       <p data-reveal className="font-mono text-xs uppercase tracking-[0.35em] text-cyan">
         CHAPTER 05 — THE PATH
       </p>
