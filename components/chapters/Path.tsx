@@ -1,26 +1,19 @@
 import { path } from "@/content/chapters";
 import CinemaLayer from "@/components/ui/CinemaLayer";
+import SceneShot from "@/components/ui/SceneShot";
 
 export default function Path() {
   return (
-    <section
-      id="path"
-      data-chapter="path"
-      className="relative mx-auto flex min-h-[140vh] max-w-5xl flex-col justify-center px-6 py-40"
-    >
+    <section id="path" data-chapter="path" className="relative">
+      <SceneShot
+        src="/media/path.jpg"
+        kicker="CHAPTER 05 — THE PATH"
+        title="From a satellite dish to a research lab"
+        index="SCENE 05"
+      />
+      <div className="relative mx-auto flex min-h-[100vh] max-w-5xl flex-col justify-center px-6 py-32">
       <CinemaLayer src="/media/path.jpg" />
-      <p data-reveal className="font-mono text-xs uppercase tracking-[0.35em] text-cyan">
-        CHAPTER 05 — THE PATH
-      </p>
-      <h2
-        data-reveal
-        className="font-display mt-5 text-4xl font-bold leading-[1.05] tracking-tight sm:text-6xl"
-      >
-        From a satellite dish
-        <br />
-        to a research lab
-      </h2>
-      <div className="mt-16 space-y-0">
+      <div className="space-y-0">
         {path.map((stop, i) => (
           <div
             key={stop.place}
@@ -34,6 +27,7 @@ export default function Path() {
             </div>
           </div>
         ))}
+      </div>
       </div>
     </section>
   );

@@ -97,6 +97,72 @@ body {
   background-size: 640px 640px;
 }
 
+/* ---------- cinema: establishing shots ---------- */
+
+.scene-shot {
+  position: relative;
+  height: 230vh; /* scroll runway for the camera move */
+}
+
+.scene-sticky {
+  position: sticky;
+  top: 0;
+  height: 100vh;
+  overflow: hidden;
+}
+
+.scene-sticky img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transform: scale(1.18);
+  will-change: transform;
+}
+
+.scene-scrim {
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(120% 100% at 50% 50%, transparent 40%, rgba(5, 6, 10, 0.55) 100%),
+    linear-gradient(to bottom, rgba(5, 6, 10, 0.55), transparent 30%, transparent 65%, rgba(5, 6, 10, 0.9));
+}
+
+.scene-letterbox {
+  position: absolute;
+  left: 0;
+  right: 0;
+  height: 6vh;
+  background: #000;
+  z-index: 2;
+}
+.scene-letterbox-top { top: 0; }
+.scene-letterbox-bottom { bottom: 0; }
+
+.scene-title-card {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: 0 1.5rem;
+  z-index: 3;
+  text-shadow: 0 2px 24px rgba(0, 0, 0, 0.6);
+}
+
+/* site-wide film vignette */
+.vignette::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 45;
+  background: radial-gradient(130% 100% at 50% 50%, transparent 62%, rgba(0, 0, 0, 0.42) 100%);
+}
+
 /* cinematic backdrop layer */
 .cinema-layer {
   position: absolute;

@@ -56,6 +56,40 @@ export default function ScrollStory({ children }: { children: ReactNode }) {
       );
     });
 
+    // establishing shots: scroll-scrubbed camera move (Ken Burns)
+    gsap.utils.toArray<HTMLElement>("[data-shot]").forEach((shot) => {
+      const img = shot.querySelector<HTMLElement>("[data-shot-img]");
+      const card = shot.querySelector<HTMLElement>("[data-title-card]");
+      if (!img || !card) return;
+
+      if (reduced) {
+        gsap.set(img, { scale: 1 });
+        gsap.set(card, { opacity: 1 });
+        return;
+      }
+
+      // the camera push-in across the whole scene
+      gsap.fromTo(
+        img,
+        { scale: 1.18, yPercent: -3 },
+        {
+          scale: 1.0,
+          yPercent: 3,
+          ease: "none",
+          scrollTrigger: { trigger: shot, start: "top bottom", end: "bottom top", scrub: true },
+        }
+      );
+
+      // title card: fade up in the first act, hold, dissolve in the last
+      gsap
+        .timeline({
+          scrollTrigger: { trigger: shot, start: "top 55%", end: "bottom 65%", scrub: true },
+        })
+        .fromTo(card, { opacity: 0, y: 60 }, { opacity: 1, y: 0, duration: 0.25 })
+        .to(card, { opacity: 1, duration: 0.5 })
+        .to(card, { opacity: 0, y: -50, duration: 0.25 });
+    });
+
     // cinematic backdrops drift slower than the page — depth
     gsap.utils.toArray<HTMLElement>("[data-cinema]").forEach((img) => {
       gsap.fromTo(

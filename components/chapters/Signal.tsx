@@ -9,7 +9,7 @@ export default function Signal() {
       data-chapter="signal"
       className="relative flex min-h-[140vh] flex-col items-center justify-center px-6 text-center"
     >
-      <CinemaLayer src="/media/signal.jpg" strength="bold" />
+      <CinemaLayer src="/media/signal.jpg" strength="full" />
       <p data-reveal className="font-mono text-xs uppercase tracking-[0.35em] text-cyan">
         CHAPTER 07 — THE SIGNAL
       </p>

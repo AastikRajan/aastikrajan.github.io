@@ -8,7 +8,7 @@ export default function Hero() {
       data-chapter="hero"
       className="relative flex min-h-screen flex-col items-center justify-center px-6 text-center"
     >
-      <CinemaLayer src="/media/hero.jpg" strength="bold" />
+      <CinemaLayer src="/media/hero.jpg" strength="full" />
       <p data-reveal className="font-mono text-xs uppercase tracking-[0.35em] text-dim">
         {site.role}
       </p>

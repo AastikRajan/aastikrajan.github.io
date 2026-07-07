@@ -1,27 +1,19 @@
 import { play, dossier } from "@/content/chapters";
 import CinemaLayer from "@/components/ui/CinemaLayer";
+import SceneShot from "@/components/ui/SceneShot";
 
 export default function Play() {
   return (
-    <section
-      id="play"
-      data-chapter="play"
-      className="relative mx-auto flex min-h-[130vh] max-w-5xl flex-col justify-center px-6 py-40"
-    >
+    <section id="play" data-chapter="play" className="relative">
+      <SceneShot
+        src="/media/play.jpg"
+        kicker="CHAPTER 06 — PLAY & CLASSIFIED"
+        title="Serious engineers also build toys"
+        index="SCENE 06"
+      />
+      <div className="relative mx-auto flex min-h-[100vh] max-w-5xl flex-col justify-center px-6 py-32">
       <CinemaLayer src="/media/play.jpg" />
-      <p data-reveal className="font-mono text-xs uppercase tracking-[0.35em] text-cyan">
-        CHAPTER 06 — PLAY & CLASSIFIED
-      </p>
-      <h2
-        data-reveal
-        className="font-display mt-5 text-4xl font-bold leading-[1.05] tracking-tight sm:text-6xl"
-      >
-        Serious engineers
-        <br />
-        also build toys
-      </h2>
-
-      <div className="mt-14 grid gap-4 sm:grid-cols-2">
+      <div className="grid gap-4 sm:grid-cols-2">
         {play.map((g) => (
           <a
             key={g.title}
@@ -51,6 +43,7 @@ export default function Play() {
             <p className="mt-4 font-mono text-[11px] uppercase tracking-wider text-dim">{d.tech}</p>
           </div>
         ))}
+      </div>
       </div>
     </section>
   );

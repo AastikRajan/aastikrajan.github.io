@@ -42,7 +42,7 @@ export const metadata: Metadata = {
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html lang="en" className={`${spaceGrotesk.variable} ${inter.variable} ${jetbrains.variable}`}>
-      <body className="grain antialiased">{children}</body>
+      <body className="grain vignette antialiased">{children}</body>
     </html>
   );
 }

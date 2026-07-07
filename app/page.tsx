@@ -21,8 +21,8 @@ export default function Home() {
         <FieldCanvas />
         <main>
           <Hero />
-          {chapters.map((c) => (
-            <ChapterSection key={c.id} chapter={c} />
+          {chapters.map((c, i) => (
+            <ChapterSection key={c.id} chapter={c} sceneIndex={`SCENE 0${i + 1}`} />
           ))}
           <Path />
           <Play />
