@@ -21,4 +21,4 @@ Cinematic scroll-story portfolio. Next.js 15 (App Router, `output: 'export'`) + 
 
 - Follow the workspace principles (think first, simplicity first, surgical diffs, goal-driven: build passes + live URL verified = done).
 - Log every work session in `docs/LOG.md`, newest entry on top. A new session reads that file first.
-- Secret-scan before every push: `git grep -nE "sk-ant-|AIzaSy|ghp_|github_pat_"` must be empty.
+- Secret-scan before every push: `git grep -nE "sk-ant-|AIzaSy|ghp_|github_pat_" -- . ':!CLAUDE.md'` must be empty (this file quotes the patterns, so it excludes itself).

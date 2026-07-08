@@ -5,6 +5,20 @@ Every work session appends one entry: date, what shipped, decisions, open items,
 
 ---
 
+## 2026-07-08 (afternoon) — Cosmetic nits cleared across ecosystem
+
+**Shipped (all verified live):**
+- daily-puzzles: og.jpg re-cropped 2048×881 → 1200×630 (1.91:1, 44KB), og:image:width/height meta updated to match, rel=canonical added. Also deleted stray untracked root `public/` (byte-identical dupes of `apps/web/public/art/`). Commit b069de8.
+- lantern-balloon-game: og:image:width/height meta added (2048×881, verified actual dims). **Bonus bug fix:** `applyRun` could randomly re-offer a just-completed goal (~37% chance — `ensureGoals` top-up didn't exclude completed ids), which also made goals.test.ts flaky. Fixed; 45/45 tests pass. Commit a97f105.
+- portfolio: rel=canonical via `alternates` in layout.tsx metadata. Commit a1fff9d.
+- CLAUDE.md: secret-scan command now excludes CLAUDE.md itself (it quotes the patterns, so the plain scan could never be empty).
+
+**Workspace map (for future sessions):** daily-puzzles clone = `D:\Code\first game`; lantern-balloon-game clone = `D:\Code\rise up protect the balloon`. Folders `ship`, `snake`, `time series` point at the lantern remote but are stale copies — ignore them.
+
+**Still open:** front-layer visual balance awaits user verdict (knobs: mote size/opacity, bird count, gem twinkle, star frequency). User-owned: rotate Anthropic API key; publish blog drafts to dev.to.
+
+---
+
 ## 2026-07-08 — Living Sky + workflow system
 
 **Shipped (live, verified 200):**
