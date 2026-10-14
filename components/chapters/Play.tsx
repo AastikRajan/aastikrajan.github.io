@@ -1,4 +1,4 @@
-import { play, dossier } from "@/content/chapters";
+import { dossier } from "@/content/chapters";
 import CinemaLayer from "@/components/ui/CinemaLayer";
 import SceneShot from "@/components/ui/SceneShot";
 
@@ -7,32 +7,13 @@ export default function Play() {
     <section id="play" data-chapter="play" className="relative">
       <SceneShot
         src="/media/play.jpg"
-        kicker="CHAPTER 06 — PLAY & CLASSIFIED"
-        title="Serious engineers also build toys"
+        kicker="CHAPTER 06 — CLASSIFIED"
+        title="Work that isn't public yet"
         index="SCENE 06"
       />
       <div className="story-panel mx-auto flex min-h-[85vh] w-full max-w-5xl flex-col justify-center px-6 py-28">
       <CinemaLayer src="/media/play.jpg" />
-      <div className="grid gap-4 sm:grid-cols-3">
-        {play.map((g) => (
-          <a
-            key={g.title}
-            data-reveal
-            href={g.href}
-            target="_blank"
-            rel="noreferrer"
-            className="glass group rounded-2xl p-6 transition-colors hover:bg-[rgba(232,234,240,0.06)]"
-          >
-            <h3 className="font-display text-xl font-semibold">
-              {g.title} <span className="text-dim transition-transform group-hover:translate-x-1">→</span>
-            </h3>
-            <p className="mt-2 text-sm leading-relaxed text-dim">{g.what}</p>
-            <p className="mt-4 font-mono text-[11px] uppercase tracking-wider text-dim">{g.tech}</p>
-          </a>
-        ))}
-      </div>
-
-      <p data-reveal className="mt-16 font-mono text-xs uppercase tracking-[0.35em] text-violet">
+      <p data-reveal className="font-mono text-xs uppercase tracking-[0.35em] text-violet">
         // classified — available on request
       </p>
       <div className="mt-6 grid gap-4 sm:grid-cols-3">

@@ -125,27 +125,6 @@ export const path: PathStop[] = [
   },
 ];
 
-export const play = [
-  {
-    title: "Vortex Drop",
-    what: "One-touch neon 3D arcade drop — spin the tower, thread the ball, chain fever combos.",
-    href: "https://aastikrajan.github.io/vortex-drop/",
-    tech: "Three.js · TypeScript",
-  },
-  {
-    title: "Lantern",
-    what: "Physics puzzle-platformer — protect the balloon with momentum, not clicks.",
-    href: "https://aastikrajan.github.io/lantern-balloon-game/",
-    tech: "Three.js · Rapier2D",
-  },
-  {
-    title: "Daily Puzzles",
-    what: "Five deterministic daily logic puzzles as an offline-first PWA.",
-    href: "https://aastikrajan.github.io/daily-puzzles/",
-    tech: "React · TypeScript · Vite",
-  },
-];
-
 export const dossier = [
   {
     title: "COSMOS-SBI",
